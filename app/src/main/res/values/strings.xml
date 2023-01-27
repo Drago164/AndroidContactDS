@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">AndroidContactDS</string>
+
+    <string-array name="entries_list">
+        <item>Entrée 1</item>
+        <item>Entrée 2</item>
+    </string-array>
+
+    <string-array name="main_courses_list">
+        <item>Plat 1</item>
+        <item>Plat 2</item>
+        <item>Plat 3</item>
+        <item>Plat 4</item>
+        <item>Plat 5</item>
+    </string-array>
+
+    <string-array name="desserts_list">
+        <item>Dessert 1</item>
+        <item>Dessert 2</item>
+    </string-array>
 </resources>
