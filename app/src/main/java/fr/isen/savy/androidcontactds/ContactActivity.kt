@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.android.volley.Request
 import com.android.volley.toolbox.JsonObjectRequest
 import com.android.volley.toolbox.Volley
-import org.json.JSONObject
 import com.google.gson.Gson
 import fr.isen.savy.androidcontactds.model.DataResult
 import fr.isen.savy.androidcontactds.model.NameItems
@@ -16,14 +15,13 @@ import fr.isen.savy.androidcontactds.databinding.ActivityMainBinding
 import fr.isen.savy.androidcontactds.model.PictureItems
 import fr.isen.savy.androidcontactds.model.Results
 
-//https://randomuser.me/api/?results=10&nat=fr
-
 class ContactActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var itemsList = ArrayList<NameItems>()
     private var itemsList2 = ArrayList<PictureItems>()
     private lateinit var myCategoryAdapter : ContactAdapter
-    private var category = ArrayList<Results>()
+    private var resultarray = ArrayList<Results>()
+    private var namearray = ArrayList<NameItems>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,13 +56,13 @@ class ContactActivity : AppCompatActivity() {
         val jsonRequest = JsonObjectRequest(
             Request.Method.GET, url, null,
             {
-                Log.w("CategoryActivity", "response : $it")
-                println("avant api")
+                Log.w("ContactActivity", "response : $it")
+                println("avant handleAPIData")
                 handleAPIData(it.toString())
-                println("apres api")
+                println("apres handleAPIData")
             },
             {
-                Log.w("CategoryActivity", "error : $it")
+                Log.w("ContactActivity", "error : $it")
             })
         Volley.newRequestQueue(this).add(jsonRequest)
     }
@@ -72,10 +70,12 @@ class ContactActivity : AppCompatActivity() {
 
     private fun handleAPIData(data: String){
         val contactData = Gson().fromJson(data, DataResult::class.java)
-        val contactResults= contactData.data.firstOrNull { it.result == category }
-        val contactName= contactResults?.result?.firstOrNull { it.name == category }
+        val contactResults= contactData.data.firstOrNull { it.result == resultarray }
+        val contactName= contactResults?.result?.firstOrNull { it.name == namearray }
 
+        println("avant adapter")
         val adapter = binding.contactList.adapter as ContactAdapter
         adapter.refreshList(contactName?.name as ArrayList<NameItems>)
+        println("apres adapter")
     }
 }

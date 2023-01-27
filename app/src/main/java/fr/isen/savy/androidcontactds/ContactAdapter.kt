@@ -30,7 +30,9 @@ internal class ContactAdapter(
 
         override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
                 val itemName = arrayListName[0]
+                holder.contentName.text = itemName.ms
                 holder.contentName.text = itemName.first
+                holder.contentName.text = itemName.last
                         //Picasso.get().load(arrayListPicture[position].medium)
                                 //.placeholder(R.drawable.contact)
                                // .into(holder.contentImage)
